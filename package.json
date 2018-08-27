@@ -1,8 +1,18 @@
 {
     "name": "Experiment01",
     "version": "1.0.0",
-    "keywords": ["util", "functional", "server", "client", "browser"],
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
     "author": "Arne",
     "contributors": [],
-    "dependencies": {}
+    "dependencies": {
+        "jsonld": "^1.0.4",
+        "moment": "^2.22.2",
+        "n3": "^1.0.0-beta.2"
+    }
 }
