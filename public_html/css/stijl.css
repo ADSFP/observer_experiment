@@ -1,12 +1,11 @@
 
 *
 {
-    margin:  0px;
     padding: 0px;
+    text-align: center;
 }
 
 body {
-    /*background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.3)), url("bg_img03.jpg");*/
     background-color: grey;
     height: 100vh;
     background-size: cover;
@@ -16,31 +15,32 @@ body {
     font-family: monospace;
 }
 
-.titel {
-    position: relative;
-    margin-left: 300px;
-    top: 300px;
-    text-align: center;
-}
-
 h1 {
     color: white;
     font-size: 40px;
-    text-align: center;
 }
 
-#bol {
-    border: 0px;
-    width: 100px;
-    height: 100px;
-    border-radius: 50px;
-    background-color: red;
-    text-align: center;
-    margin-left: 700px;
-    margin-top: 400px;
+.box {
+    margin-left: 10px;
+    float: left;
+    width: 42%;
+    padding: 50px;
+    font-size: 50px;
 }
 
-p.timerTekst {
-    margin-top: 25px;
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+#myDiv1 {
+    /*margin-left: 90px;*/
+    font-size: 50px;
+}
+
+#myDiv2 {
+    /*margin-left: 90px;*/
+    font-size: 50px;
 }
 
