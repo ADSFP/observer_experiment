@@ -21,7 +21,8 @@ const predicates = {
 
 const signalGroupExample = 'http://example.org/signalgroup/4';
 
-//setInterval(startFetch(), 1000);
+
+setInterval(startFetch, 1000);
 
 if(typeof(EventSource) !== "undefined") {
     var source = new EventSource("https://lodi.ilabt.imec.be:3002/");
@@ -45,7 +46,7 @@ function startFetch() {
         return response.json();
     })
     .then(function(data) {
-        console.log(data);
+        //console.log(data);
         processEvent2(data);
     });
 }
@@ -66,11 +67,13 @@ function getMinEndTimeBySignalgroup(_signalGroup, _quads) {
     // In case data is found about _signalGroup
     if (eventStateQuad && eventStateQuad.length > 0) {
         const graph = eventStateQuad[0].graph.value;
+        //console.log(eventStateQuad[0].object.value);
         const eventState = eventStateQuad[0].object.value;
         const eventStateLabel = store.getQuads(eventState, predicates.label, null)[0].object.value;
+        //console.log(eventStateLabel);
         const minEndTime = moment(store.getQuads(eventState, predicates.minEndTime, null, graph)[0].object.value); 
         
-        return minEndTime;
+        return [minEndTime, eventStateLabel];
     }        
 }
 
@@ -80,15 +83,17 @@ async function processEvent1(_event) {
     const quadsString = await retrieveQuads(data);
     const parser = new N3.Parser();
     const quads = parser.parse(quadsString);
-        
-    let minEndTime = getMinEndTimeBySignalgroup(signalGroupExample, quads);
+     
+    let arrayLabel = getMinEndTimeBySignalgroup(signalGroupExample, quads);
+    let minEndTime = arrayLabel[0];
+    let eventLabel = arrayLabel[1];
     const generatedAt = moment(data[0]['generatedAt']);
     if(minEndTime) {
         /*console.log("min: " + minEndTime.valueOf());
         console.log("now: " + generatedAt.valueOf());
         console.log("diff: " + (minEndTime.valueOf() - generatedAt.valueOf()));*/
         const count = Math.round((minEndTime.valueOf() - generatedAt)/1000);
-        document.getElementById("myDiv1").innerHTML = "pub-sub: " + count;
+        document.getElementById("myDiv1").innerHTML = count + "<br>" + eventLabel;
     }
 }   
 
@@ -99,13 +104,15 @@ async function processEvent2(_event) {
     const parser = new N3.Parser();
     const quads = parser.parse(quadsString);
         
-    let minEndTime = getMinEndTimeBySignalgroup(signalGroupExample, quads);
+    let arrayLabel = getMinEndTimeBySignalgroup(signalGroupExample, quads);
+    let minEndTime = arrayLabel[0];
+    let eventLabel = arrayLabel[1];    
     const generatedAt = moment(data[0]['generatedAt']);
     if(minEndTime) {
         /*console.log("min: " + minEndTime.valueOf());
         console.log("now: " + generatedAt.valueOf());
         console.log("diff: " + (minEndTime.valueOf() - generatedAt.valueOf()));*/
         const count = Math.round((minEndTime.valueOf() - generatedAt)/1000);
-        document.getElementById("myDiv2").innerHTML = "polling: " + count;
+        document.getElementById("myDiv2").innerHTML = count + "<br>" + eventLabel;
     }
 }   

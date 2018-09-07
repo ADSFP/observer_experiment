@@ -14,10 +14,17 @@ and open the template in the editor.
     </head>
     <body>
         <header>
-            <div id="myDiv"></div>
             <h1 id="titel">Welkom op deze experimentele interface!</h1>
+            <div class="clearfix">
+                <p class="box" style="background-color:white">Pub-sub</p>
+                <p class="box" style="background-color:white">Polling</p>
+                <p class="box" id="myDiv1"></p>
+                <p class="box" id="myDiv2"></p>
+            </div>
+            
             
         </header>
+        <canvas id="myCanvas" width="300" height="150">your browser does not support the HTML5 canvas tag.</canvas>
         <div id="bol">
             <p class="timerTekst" id="kleur"></p>
             <p class="timerTekst" id="timer"></p>
